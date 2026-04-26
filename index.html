@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VipinTaskManager Pro</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#5B6EF5">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TaskManager Pro">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
@@ -140,9 +145,10 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 
 /* ── CALENDAR ── */
 .calwrap{background:var(--surf);border-radius:var(--rx);border:1px solid var(--bd);overflow:hidden;box-shadow:0 1px 4px rgba(91,110,245,.06)}
-.calgrd{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--bd)}
-.caldh{background:var(--surf2);padding:9px;text-align:center;font-size:.69rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.calday{background:var(--surf);min-height:95px;padding:6px;cursor:pointer;transition:background .13s;display:flex;flex-direction:column}
+.calgrd{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:var(--bd)}
+.caldh{background:var(--surf2);padding:5px;text-align:center;font-size:.67rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--bd)}
+.calday{background:var(--surf);min-height:62px;padding:4px 5px;cursor:pointer;transition:background .13s;display:flex;flex-direction:column;border:1px solid var(--bd)}
+@media(max-width:700px){.calwrap{overflow-x:auto}.calgrd{min-width:560px}}
 .calday:hover{background:var(--surf2)}
 .calday.tod{background:rgba(91,110,245,.05)}
 .calday.emp{background:var(--bg);cursor:default;pointer-events:none}
@@ -201,7 +207,7 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 
 /* ── FILTER BAR ── */
 .fbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.fsel{padding:6px 10px;border:1.5px solid var(--bd);border-radius:var(--r);font-family:var(--ffb);font-size:.79rem;background:var(--surf);color:var(--text);outline:none;cursor:pointer;transition:var(--dur)}
+.fsel{padding:8px 12px;border:1.5px solid var(--bd);border-radius:var(--r);font-family:var(--ffb);font-size:.84rem;background:var(--surf);color:var(--text);outline:none;cursor:pointer;transition:var(--dur);min-width:130px;height:38px}
 .fsel:focus{border-color:var(--p)}
 
 /* ── EMPTY ── */
@@ -339,6 +345,54 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 /* ── POLISH: vision/project list rows breathe ── */
 .li{transition:border-color .15s, transform .15s, box-shadow .15s}
 .li:hover{transform:translateX(2px)}
+
+/* ── DARK MODE ── */
+[data-theme="dark"]{
+  --bg:#0f1117;--surf:#1a1d2e;--surf2:#23263a;
+  --bd:rgba(91,110,245,0.22);
+  --text:#e2e8f0;--muted:#94a3b8;--lt:#64748b;
+}
+[data-theme="dark"] .hdr{box-shadow:0 4px 22px rgba(0,0,0,.6)}
+[data-theme="dark"] .mbox{background:#1a1d2e}
+[data-theme="dark"] .ccd,[data-theme="dark"] .mcd,[data-theme="dark"] .scd{background:#1a1d2e}
+[data-theme="dark"] .fc{background:#23263a;color:#e2e8f0;border-color:rgba(91,110,245,.3)}
+[data-theme="dark"] .tcd{background:#1a1d2e;border-color:rgba(91,110,245,.2)}
+[data-theme="dark"] .cdbox{background:#1a1d2e}
+[data-theme="dark"] .calday{background:#1a1d2e;border-color:rgba(91,110,245,.18)}
+[data-theme="dark"] .caldh{background:#23263a}
+[data-theme="dark"] .tw{color:#fff}
+.dm-btn{background:none;border:1.5px solid rgba(255,255,255,.3);border-radius:var(--rf);padding:5px 10px;cursor:pointer;color:#fff;font-size:.85rem;transition:var(--dur)}
+.dm-btn:hover{background:rgba(255,255,255,.15)}
+
+/* ── TAGS ── */
+.tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:var(--rf);font-size:.66rem;font-weight:700;background:rgba(91,110,245,.12);color:var(--p);border:1px solid rgba(91,110,245,.25);cursor:pointer}
+.tag-input-wrap{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--r);background:var(--surf);min-height:38px;cursor:text}
+.tag-input-wrap:focus-within{border-color:var(--p);box-shadow:0 0 0 3px rgba(91,110,245,.1)}
+.tag-input-wrap input{border:none;outline:none;background:none;font-family:var(--ffb);font-size:.84rem;color:var(--text);min-width:80px;flex:1}
+.tag-rm{background:none;border:none;cursor:pointer;color:var(--muted);font-size:.75rem;line-height:1;padding:0 1px}
+
+/* ── LIVE TIMER ── */
+.timer-btn{padding:5px 9px;border-radius:var(--r);border:1.5px solid var(--bd);background:none;cursor:pointer;font-size:.75rem;font-weight:700;color:var(--muted);transition:var(--dur);white-space:nowrap}
+.timer-btn.running{background:linear-gradient(135deg,#EF4444,#F97316);color:#fff;border-color:transparent;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.timer-disp{font-size:.72rem;font-weight:700;color:var(--ok);min-width:38px}
+
+/* ── RECURRING ── */
+.rec-badge{font-size:.65rem;padding:1px 6px;border-radius:var(--rf);background:rgba(16,185,129,.12);color:#065f46;border:1px solid rgba(16,185,129,.3);font-weight:700}
+
+/* ── DEPENDENCIES ── */
+.blocked-badge{font-size:.65rem;padding:1px 6px;border-radius:var(--rf);background:#FEF2F2;color:var(--err);border:1px solid #FECACA;font-weight:700}
+.dep-sel{width:100%;padding:6px 9px;border:1.5px solid var(--bd);border-radius:var(--r);font-family:var(--ffb);font-size:.8rem;background:var(--surf);color:var(--text)}
+
+/* ── WORKLOAD HEATMAP ── */
+.cal-load{height:3px;border-radius:2px;margin-top:3px}
+.load-lo{background:#10B981}.load-md{background:#F59E0B}.load-hi{background:#EF4444}
+
+/* ── NOTIFICATION BELL ── */
+.notif-btn{position:relative;background:none;border:1.5px solid rgba(255,255,255,.3);border-radius:var(--rf);padding:5px 10px;cursor:pointer;color:#fff;font-size:.85rem;transition:var(--dur)}
+.notif-btn:hover{background:rgba(255,255,255,.15)}
+.notif-dot{position:absolute;top:2px;right:2px;width:7px;height:7px;background:#EF4444;border-radius:50%;border:1.5px solid transparent;display:none}
+.notif-dot.show{display:block}
 </style>
 </head>
 <body>
@@ -355,6 +409,8 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
   </div>
   <div class="hdr-r">
     <div class="sv-badge">💾 Auto-Saved</div>
+    <button class="notif-btn" id="notif-btn" onclick="showNotifications()" title="Notifications"><span id="notif-dot" class="notif-dot"></span>🔔</button>
+    <button class="dm-btn" id="dm-btn" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
     <div class="avbtn" id="avbtn" onclick="toggleProfileDrop(event)">
       <div class="av" id="hdr-av" style="background:linear-gradient(135deg,#f093fb,#f5576c)">EX</div>
       <span id="hdr-name">Example</span>
@@ -387,7 +443,7 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
     <button class="nbtn act" data-page="dashboard"  onclick="showPage('dashboard')"><span class="nic">🏠</span>Dashboard</button>
     <button class="nbtn"     data-page="myday"      onclick="showPage('myday')"><span class="nic">⭐</span>My Day</button>
     <button class="nbtn"     data-page="profile"     onclick="showPage('profile')"><span class="nic">👤</span>My Profile</button>
-    <button class="nbtn"     data-page="visions"    onclick="showPage('visions')"><span class="nic">🎯</span>Visions & Projects</button>
+    <button class="nbtn"     data-page="visions"    onclick="showPage('visions')"><span class="nic">🎯</span>Goals & Projects</button>
     <button class="nbtn"     data-page="tasks"      onclick="showPage('tasks')"><span class="nic">📋</span>Task Activity</button>
     <button class="nbtn"     data-page="calendar"   onclick="showPage('calendar')"><span class="nic">📅</span>Due Date Calendar</button>
     <button class="nbtn"     data-page="settings"   onclick="showPage('settings')"><span class="nic">⚙️</span>Data Management</button>
@@ -461,18 +517,18 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 
     <!-- VISIONS -->
     <div id="page-visions" class="page">
-      <div class="ph"><div><div class="ph-t">🎯 Visions & Projects</div><div class="ph-s">Define your goals with a time budget, then break them into projects that auto-balance</div></div></div>
+      <div class="ph"><div><div class="ph-t">🎯 Goals & Projects</div><div class="ph-s">Define your goals with a time budget, then break them into projects that auto-balance</div></div></div>
       <div class="visgrd">
         <div class="ccd">
-          <div class="ct">🌟 1. Visions (Goals)</div>
+          <div class="ct">🌟 1. Goals</div>
           <div style="display:flex;gap:7px;margin-bottom:8px;flex-wrap:wrap">
-            <input id="vTitle" class="fc" placeholder="Vision title — e.g., Clear CA Final Exam" style="flex:2;min-width:160px">
-            <select id="vType" class="fc" style="flex:1;min-width:115px"><option>Short Term</option><option>Long Term</option></select>
+            <input id="vTitle" class="fc" placeholder="Goal title — e.g., Clear CA Final Exam" style="flex:2;min-width:160px">
+            <select id="vType" class="fc" style="flex:1;min-width:115px"><option>Short Term</option><option>Medium Term</option><option>Long Term</option></select>
           </div>
           <div style="display:flex;gap:7px;margin-bottom:6px;flex-wrap:wrap">
             <input id="vHours" class="fc" type="number" min="0" placeholder="Total hours needed (e.g., 240)" style="flex:1;min-width:160px" oninput="updateVisionPreview()">
             <input id="vTarget" class="fc" type="date" placeholder="Target date" style="flex:1;min-width:160px" oninput="updateVisionPreview()" title="Optional target date">
-            <button class="btn bp bsm" onclick="addVision()">+ Add Vision</button>
+            <button class="btn bp bsm" onclick="addVision()">+ Add Goal</button>
           </div>
           <div id="vPreview" style="font-size:.74rem;color:var(--p);font-weight:600;margin-bottom:13px;min-height:14px"></div>
           <div id="visions-list"></div>
@@ -481,7 +537,7 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
           <div class="ct">🗂️ 2. Projects</div>
           <div style="display:flex;gap:7px;margin-bottom:8px;flex-wrap:wrap">
             <input id="pTitle" class="fc" placeholder="E.g., Revision Strategy" style="flex:1;min-width:130px">
-            <select id="pVision" class="fc" style="flex:1;min-width:130px"><option value="">— Link to Vision —</option></select>
+            <select id="pVision" class="fc" style="flex:1;min-width:130px"><option value="">— Link to Goal —</option></select>
           </div>
           <div style="display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap">
             <input id="pHours" class="fc" type="number" min="0" placeholder="Hours (blank = auto-balance)" style="flex:1;min-width:170px">
@@ -519,6 +575,9 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
           <option value="none">No Grouping</option>
           <option value="project" selected>Group by Project</option>
           <option value="status">Group by Status</option>
+        </select>
+        <select id="tagFilter" class="fsel" onchange="renderTasks()">
+          <option value="all">All Tags</option>
         </select>
       </div>
       <div id="list-view">
@@ -587,7 +646,7 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
         </div>
         <div class="scd" style="border:1.5px solid #FECACA">
           <h3 style="color:var(--err)">🗑️ Danger Zone</h3>
-          <p>Permanently wipe all visions, projects, and tasks. <strong>Cannot be undone.</strong></p>
+          <p>Permanently wipe all goals, projects, and tasks. <strong>Cannot be undone.</strong></p>
           <button class="btn bdr" onclick="confirmAction('Wipe ALL data permanently? This cannot be undone.',resetData)">Factory Reset App</button>
         </div>
       </div>
@@ -762,9 +821,28 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
         </div>
       </div>
       <div class="fr">
-        <div class="fg"><label class="fl">Deadline</label><input type="date" id="t-deadline" class="fc"></div>
+        <div class="fg"><label class="fl">Start Date</label><input type="date" id="t-start" class="fc"></div>
+        <div class="fg"><label class="fl">Due Date</label><input type="date" id="t-deadline" class="fc"></div>
+      </div>
+      <div class="fr">
         <div class="fg"><label class="fl">Est Hours</label><input type="number" id="t-est" class="fc" min="0" step="0.5" placeholder="0"></div>
         <div class="fg"><label class="fl">Actual Hours</label><input type="number" id="t-act" class="fc" min="0" step="0.5" placeholder="0"></div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Recurrence</label>
+          <select id="t-recurrence" class="fc">
+            <option value="none">None</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Blocked By (task ID)</label><input id="t-blocked" class="fc" placeholder="Task IDs comma-separated"></div>
+      </div>
+      <div class="fg"><label class="fl">Tags <span style="color:var(--lt);font-weight:500;text-transform:none">(type + Enter)</span></label>
+        <div class="tag-input-wrap" id="tag-wrap" onclick="document.getElementById('tag-input').focus()">
+          <input id="tag-input" placeholder="Add tag…" onkeydown="handleTagInput(event)">
+        </div>
       </div>
     </div>
     <div class="mf">
@@ -778,13 +856,13 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 <div id="vision-modal" class="mov" style="display:none" onclick="if(event.target===this)closeVisionModal()">
   <div class="mbox" style="max-width:520px">
     <div class="mh">
-      <span class="mht" id="vm-edit-title">🎯 Edit Vision</span>
+      <span class="mht" id="vm-edit-title">🎯 Edit Goal</span>
       <button class="mcl" onclick="closeVisionModal()">✕</button>
     </div>
     <div class="mb">
-      <div class="fg"><label class="fl">Vision Title *</label><input id="ev-title" class="fc" placeholder="E.g., Clear CA Final Exam"></div>
+      <div class="fg"><label class="fl">Goal Title *</label><input id="ev-title" class="fc" placeholder="E.g., Clear CA Final Exam"></div>
       <div class="fr">
-        <div class="fg"><label class="fl">Type</label><select id="ev-type" class="fc"><option>Short Term</option><option>Long Term</option></select></div>
+        <div class="fg"><label class="fl">Type</label><select id="ev-type" class="fc"><option>Short Term</option><option>Medium Term</option><option>Long Term</option></select></div>
         <div class="fg"><label class="fl">Total Hours Needed</label><input id="ev-hours" class="fc" type="number" min="0" step="1" placeholder="e.g., 240"></div>
       </div>
       <div class="fg">
@@ -792,10 +870,14 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
         <input id="ev-target" class="fc" type="date">
         <div id="ev-pace" style="margin-top:6px;font-size:.78rem;color:var(--p);font-weight:600"></div>
       </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Start Date</label><input id="ev-start" class="fc" type="date"></div>
+        <div class="fg"><label class="fl">End Date</label><input id="ev-end" class="fc" type="date"></div>
+      </div>
     </div>
     <div class="mf">
       <button class="btn bo" onclick="closeVisionModal()">Cancel</button>
-      <button class="btn bp" onclick="saveVisionEdit()">💾 Save Vision</button>
+      <button class="btn bp" onclick="saveVisionEdit()">💾 Save Goal</button>
     </div>
   </div>
 </div>
@@ -810,10 +892,14 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
     <div class="mb">
       <div class="fg"><label class="fl">Project Title *</label><input id="ep-title" class="fc" placeholder="E.g., Revision Strategy"></div>
       <div class="fr">
-        <div class="fg"><label class="fl">Linked Vision</label><select id="ep-vision" class="fc"></select></div>
+        <div class="fg"><label class="fl">Linked Goal</label><select id="ep-vision" class="fc"></select></div>
         <div class="fg"><label class="fl">Hours Budget <span style="color:var(--lt);font-weight:500;text-transform:none">(blank = auto)</span></label><input id="ep-hours" class="fc" type="number" min="0" step="0.5" placeholder="auto"></div>
       </div>
       <div id="ep-budget-info" style="margin-top:4px;font-size:.78rem;color:var(--muted)"></div>
+      <div class="fr" style="margin-top:10px">
+        <div class="fg"><label class="fl">Start Date</label><input id="ep-start" class="fc" type="date"></div>
+        <div class="fg"><label class="fl">End Date</label><input id="ep-end" class="fc" type="date"></div>
+      </div>
     </div>
     <div class="mf">
       <button class="btn bo" onclick="closeProjectModal()">Cancel</button>
@@ -875,8 +961,8 @@ body{font-family:var(--ffb);background:var(--bg);color:var(--text);min-height:10
 /* ══════════════════════════════════════
    DATA & CONSTANTS
 ══════════════════════════════════════ */
-const SK = 'taskMasterPro_v6';
-const SK_OLD = 'taskMasterPro_v5';
+const SK = 'taskMasterPro_v8';
+const SK_OLD = 'taskMasterPro_v7';
 const HRS_PER_DAY = 8;
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS7  = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -895,18 +981,18 @@ const S_CFG = {
 
 const SEED = {
   visions:  [
-    {id:1,title:'Clear CA Final Exam',type:'Short Term',durationMode:'days',totalHours:240,targetDate:''},
-    {id:2,title:'Career Upskilling (Tech)',type:'Long Term',durationMode:'hours',totalHours:120,targetDate:''}
+    {id:1,title:'Clear CA Final Exam',type:'Short Term',durationMode:'days',totalHours:240,targetDate:'',startDate:'2026-04-01',endDate:'2026-06-30'},
+    {id:2,title:'Career Upskilling (Tech)',type:'Long Term',durationMode:'hours',totalHours:120,targetDate:'',startDate:'2026-01-01',endDate:'2026-12-31'}
   ],
   projects: [
-    {id:1,visionId:1,title:'Revision Strategy',hoursAllocated:60},
-    {id:2,visionId:2,title:'AI for Data Analytics',hoursAllocated:null}
+    {id:1,visionId:1,title:'Revision Strategy',hoursAllocated:60,startDate:'2026-04-01',endDate:'2026-05-31'},
+    {id:2,visionId:2,title:'AI for Data Analytics',hoursAllocated:null,startDate:'2026-02-01',endDate:'2026-07-31'}
   ],
   tasks: [
-    {id:1,projectId:2,title:'Complete AI Module 1',     status:'in_progress',priority:'high',  deadline:'2026-03-25',notes:'<ul><li>Study Pandas</li><li>Complete exercises</li></ul>',estHours:4,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null},
-    {id:2,projectId:1,title:'Mock Test Paper',          status:'todo',       priority:'high',  deadline:'2026-03-28',notes:'<p>Strict 3-hour limit practice.</p>',estHours:3,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null},
-    {id:3,projectId:1,title:'Chapter Notes Review',    status:'review',     priority:'medium',deadline:'2026-03-22',notes:'<p>Focus on key chapters.</p>',estHours:2,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null},
-    {id:4,projectId:2,title:'Python Basics Complete',  status:'done',       priority:'low',   deadline:'2026-03-10',notes:'<p>Completed successfully!</p>',estHours:5,actualHours:6,completedAt:'2026-03-10T12:00:00.000Z',subtasks:[],gcalEventId:null}
+    {id:1,projectId:2,title:'Complete AI Module 1',     status:'in_progress',priority:'high',  startDate:'2026-04-20',deadline:'2026-04-28',notes:'<ul><li>Study Pandas</li><li>Complete exercises</li></ul>',estHours:4,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null,tags:['deepwork'],recurrence:'none',blockedBy:[],timerStart:null,timerTotal:0},
+    {id:2,projectId:1,title:'Mock Test Paper',          status:'todo',       priority:'high',  startDate:'2026-04-25',deadline:'2026-04-30',notes:'<p>Strict 3-hour limit practice.</p>',estHours:3,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null,tags:['exam'],recurrence:'weekly',blockedBy:[],timerStart:null,timerTotal:0},
+    {id:3,projectId:1,title:'Chapter Notes Review',    status:'review',     priority:'medium',startDate:'2026-04-15',deadline:'2026-04-27',notes:'<p>Focus on key chapters.</p>',estHours:2,actualHours:0,completedAt:null,subtasks:[],gcalEventId:null,tags:['revision'],recurrence:'none',blockedBy:[1],timerStart:null,timerTotal:0},
+    {id:4,projectId:2,title:'Python Basics Complete',  status:'done',       priority:'low',   startDate:'2026-04-01',deadline:'2026-04-10',notes:'<p>Completed successfully!</p>',estHours:5,actualHours:6,completedAt:'2026-04-10T12:00:00.000Z',subtasks:[],gcalEventId:null,tags:['coding'],recurrence:'none',blockedBy:[],timerStart:null,timerTotal:0}
   ]
 };
 
@@ -937,21 +1023,31 @@ function loadData(){
 function migrateData(d){
   d = d || {};
   d.visions  = (d.visions||[]).map(v => ({
-    durationMode: v.durationMode || 'hours',
-    totalHours:   +v.totalHours || 0,
-    targetDate:   v.targetDate || '',
+    durationMode: 'hours',
+    totalHours:   0,
+    targetDate:   '',
+    startDate:    '',
+    endDate:      '',
     ...v
   }));
   d.projects = (d.projects||[]).map(p => ({
-    hoursAllocated: (p.hoursAllocated===undefined ? null : p.hoursAllocated),
+    hoursAllocated: null,
+    startDate:      '',
+    endDate:        '',
     ...p
   }));
   d.tasks    = (d.tasks||[]).map(t => ({
-    estHours:    +t.estHours    || 0,
-    actualHours: +t.actualHours || 0,
-    completedAt: t.completedAt || null,
-    subtasks:    Array.isArray(t.subtasks) ? t.subtasks : [],
-    gcalEventId: t.gcalEventId || null,
+    estHours:    0,
+    actualHours: 0,
+    completedAt: null,
+    subtasks:    [],
+    gcalEventId: null,
+    startDate:   '',
+    tags:        [],
+    recurrence:  'none',
+    blockedBy:   [],
+    timerStart:  null,
+    timerTotal:  0,
     ...t
   }));
   return d;
@@ -1192,14 +1288,14 @@ function addVision(){
   const ty  = document.getElementById('vType').value;
   const hrs = +document.getElementById('vHours').value || 0;
   const tgt = document.getElementById('vTarget').value;
-  if(!t){ toast('Vision title required.','error'); return; }
+  if(!t){ toast('Goal title required.','error'); return; }
   // Clean simple model: hours is the canonical budget; targetDate is for pace tracking
   D.visions.push({id:newId(), title:t, type:ty, durationMode:'hours', totalHours:hrs, targetDate:tgt});
   document.getElementById('vTitle').value = '';
   document.getElementById('vHours').value = '';
   document.getElementById('vTarget').value = '';
   document.getElementById('vPreview').textContent = '';
-  save(); renderAll(); toast('Vision added!');
+  save(); renderAll(); toast('Goal added!');
 }
 
 /* ── EDIT VISION ── */
@@ -1212,6 +1308,8 @@ function openVisionModal(id){
   document.getElementById('ev-type').value   = v.type || 'Short Term';
   document.getElementById('ev-hours').value  = v.totalHours || '';
   document.getElementById('ev-target').value = v.targetDate || '';
+  document.getElementById('ev-start').value  = v.startDate || '';
+  document.getElementById('ev-end').value    = v.endDate || '';
   updateEvPace();
   ['ev-hours','ev-target'].forEach(id => document.getElementById(id).oninput = updateEvPace);
   document.getElementById('vision-modal').style.display = 'flex';
@@ -1234,7 +1332,9 @@ function saveVisionEdit(){
   v.totalHours  = +document.getElementById('ev-hours').value || 0;
   v.targetDate  = document.getElementById('ev-target').value;
   v.durationMode = 'hours';
-  save(); renderAll(); closeVisionModal(); toast('Vision updated!');
+  v.startDate   = document.getElementById('ev-start').value;
+  v.endDate     = document.getElementById('ev-end').value;
+  save(); renderAll(); closeVisionModal(); toast('Goal updated!');
 }
 
 /* ── EDIT PROJECT ── */
@@ -1245,6 +1345,8 @@ function openProjectModal(id){
   _editingProjectId = id;
   document.getElementById('ep-title').value  = p.title;
   document.getElementById('ep-hours').value  = p.hoursAllocated==null ? '' : p.hoursAllocated;
+  document.getElementById('ep-start').value  = p.startDate || '';
+  document.getElementById('ep-end').value    = p.endDate || '';
   // Populate vision dropdown
   const vsel = document.getElementById('ep-vision');
   vsel.innerHTML = '<option value="">— Unlinked —</option>' +
@@ -1264,7 +1366,7 @@ function updateEpBudget(){
   const goalH = goalTotalHours(v);
   const others = D.projects.filter(p => p.visionId==v.id && p.id!==_editingProjectId && p.hoursAllocated!=null && p.hoursAllocated!=='').reduce((s,p)=>s+ +p.hoursAllocated,0);
   const remaining = Math.max(0, goalH - others);
-  info.textContent = `Vision budget: ${goalH}h · Others use ${others}h · ${remaining}h available for this project`;
+  info.textContent = `Goal budget: ${goalH}h · Others use ${others}h · ${remaining}h available for this project`;
 }
 function saveProjectEdit(){
   if(!_editingProjectId) return;
@@ -1277,13 +1379,15 @@ function saveProjectEdit(){
   p.title          = t;
   p.visionId       = vid ? parseInt(vid) : null;
   p.hoursAllocated = hraw === '' ? null : (+hraw||0);
+  p.startDate      = document.getElementById('ep-start').value;
+  p.endDate        = document.getElementById('ep-end').value;
   save(); renderAll(); closeProjectModal(); toast('Project updated!');
 }
 function delVision(id){
-  confirmAction('Delete vision? Linked projects will be unlinked.', ()=>{
+  confirmAction('Delete goal? Linked projects will be unlinked.', ()=>{
     D.visions = D.visions.filter(v => v.id !== id);
     D.projects.forEach(p => { if(p.visionId == id) p.visionId = ''; });
-    save(); renderAll(); toast('Vision deleted.','info');
+    save(); renderAll(); toast('Goal deleted.','info');
   });
 }
 function addProject(){
@@ -1291,7 +1395,7 @@ function addProject(){
   const vi = document.getElementById('pVision').value;
   const hraw = document.getElementById('pHours').value.trim();
   const hrs  = hraw === '' ? null : (+hraw||0);
-  if(!t || !vi){ toast('Title and vision required.','error'); return; }
+  if(!t || !vi){ toast('Title and goal required.','error'); return; }
   D.projects.push({id:newId(), visionId:parseInt(vi), title:t, hoursAllocated:hrs});
   document.getElementById('pTitle').value = '';
   document.getElementById('pHours').value = '';
@@ -1316,7 +1420,7 @@ function renderVisionsPage(){
   const pVis = document.getElementById('pVision');
   if(pVis){
     const cur = pVis.value;
-    pVis.innerHTML = '<option value="">— Link to Vision —</option>' +
+    pVis.innerHTML = '<option value="">— Link to Goal —</option>' +
       D.visions.map(v => `<option value="${v.id}"${v.id==cur?' selected':''}>${esc(v.title)}</option>`).join('');
   }
   // Project dropdowns in task modal
@@ -1333,11 +1437,19 @@ function renderVisionsPage(){
     pf.innerHTML = '<option value="all">All Projects</option>' +
       D.projects.map(p => `<option value="${p.id}"${p.id==cur3?' selected':''}>${esc(p.title)}</option>`).join('');
   }
+  // Tag filter
+  const tgf = document.getElementById('tagFilter');
+  if(tgf){
+    const curTag = tgf.value;
+    const allTags = [...new Set(D.tasks.flatMap(t => t.tags||[]))].sort();
+    tgf.innerHTML = '<option value="all">All Tags</option>' +
+      allTags.map(tg => `<option value="${esc(tg)}"${tg===curTag?' selected':''}>#${esc(tg)}</option>`).join('');
+  }
 
   const vl = document.getElementById('visions-list');
   if(vl){
     if(!D.visions.length){
-      vl.innerHTML = '<div class="emp" style="padding:18px"><div class="empi">🎯</div><div class="empt">No Visions Yet</div><div class="emps">Add your first goal above.</div></div>';
+      vl.innerHTML = '<div class="emp" style="padding:18px"><div class="empi">🎯</div><div class="empt">No Goals Yet</div><div class="emps">Add your first goal above.</div></div>';
     } else {
       vl.innerHTML = D.visions.map(v => {
         const tc      = D.projects.filter(p=>p.visionId==v.id).length;
@@ -1351,13 +1463,14 @@ function renderVisionsPage(){
             <div>
               <div class="lin">${esc(v.title)}</div>
               <div style="display:flex;gap:5px;margin-top:4px;flex-wrap:wrap">
-                <span class="bdg ${v.type==='Long Term'?'bip':'bdn'}">${v.type}</span>
+                <span class="bdg ${v.type==='Long Term'?'bip':v.type==='Medium Term'?'brv':'bdn'}">${v.type}</span>
                 <span class="bdg btd">${tc} project${tc!==1?'s':''}</span>
                 <span class="bdg bhr">⏱ ${goalDurationLabel(v)}</span>
+                ${(v.startDate||v.endDate)?`<span class="bdg brv">📅 ${v.startDate?fmtDate(v.startDate):'?'} – ${v.endDate?fmtDate(v.endDate):'?'}</span>`:''}
               </div>
             </div>
             <div style="display:flex;gap:5px;flex-shrink:0">
-              <button class="bic" onclick="openVisionModal(${v.id})" title="Edit Vision">✏️</button>
+              <button class="bic" onclick="openVisionModal(${v.id})" title="Edit Goal">✏️</button>
               <button class="bic bic-red" onclick="delVision(${v.id})" title="Delete">🗑️</button>
             </div>
           </div>
@@ -1387,7 +1500,7 @@ function renderVisionsPage(){
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
             <div>
               <div class="lin">${esc(p.title)}</div>
-              <div class="lis">🎯 ${esc(v?.title||'Unlinked')} · ${tc} task${tc!==1?'s':''} · <span class="bdg bhr" style="padding:1px 6px;font-size:.65rem">⏱ ${allotH.toFixed(1)}h${auto?' (auto)':''}</span></div>
+              <div class="lis">🎯 ${esc(v?.title||'Unlinked')} · ${tc} task${tc!==1?'s':''} · <span class="bdg bhr" style="padding:1px 6px;font-size:.65rem">⏱ ${allotH.toFixed(1)}h${auto?' (auto)':''}</span>${(p.startDate||p.endDate)?` <span class="bdg brv" style="padding:1px 6px;font-size:.65rem">📅 ${p.startDate?fmtDate(p.startDate):'?'} – ${p.endDate?fmtDate(p.endDate):'?'}</span>`:''}</div>
             </div>
             <div style="display:flex;gap:5px;flex-shrink:0">
               <button class="bic" onclick="openProjectModal(${p.id})" title="Edit Project">✏️</button>
@@ -1407,9 +1520,11 @@ function renderVisionsPage(){
 function getFiltered(){
   const sf = document.getElementById('statusFilter')?.value  || 'all';
   const pf = document.getElementById('projectFilter')?.value || 'all';
+  const tf = document.getElementById('tagFilter')?.value     || 'all';
   return D.tasks.filter(t => {
     if(sf !== 'all' && t.status !== sf) return false;
     if(pf !== 'all' && String(t.projectId) !== pf) return false;
+    if(tf !== 'all' && !(t.tags||[]).includes(tf)) return false;
     if(searchTerm && !t.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
     return true;
   });
@@ -1493,8 +1608,11 @@ function buildTaskCard(t){
   const ovr  = t.status !== 'done' && t.deadline && t.deadline < todayStr();
   const isDn = t.status === 'done';
   const subTotal = (t.subtasks||[]).length;
-  const subDone  = (t.subtasks||[]).filter(s=>s.done).length;
-  const hourOver = (+t.actualHours||0) > (+t.estHours||0) && +t.estHours>0;
+  const subDone   = (t.subtasks||[]).filter(s=>s.done).length;
+  const hourOver  = (+t.actualHours||0) > (+t.estHours||0) && +t.estHours>0;
+  const isBlocked = (t.blockedBy||[]).some(bid => { const bt=D.tasks.find(x=>x.id===bid); return bt && bt.status!=='done'; });
+  const timerRunning = !!t.timerStart;
+  const elapsed   = timerRunning ? fmtElapsed(Date.now() - t.timerStart + (t.timerTotal||0)*3600000) : '';
   return `<div class="tcd ${isDn?'done':''}">
     <div class="tbar" style="background:${pc.bar}"></div>
     <div class="tin">
@@ -1502,6 +1620,8 @@ function buildTaskCard(t){
         <button class="tcheck ${isDn?'dn':''}" onclick="toggleComplete(${t.id})" title="${isDn?'Mark as To Do':'Mark complete'}">${isDn?'✓':''}</button>
         <div class="tnm" ondblclick="inlineEditTitle(this,${t.id})">${esc(t.title)}</div>
         <span class="bdg ${pc.cls}">● ${pc.label}</span>
+        ${isBlocked?`<span class="blocked-badge">🔒 Blocked</span>`:''}
+        ${t.recurrence&&t.recurrence!=='none'?`<span class="rec-badge">🔁 ${t.recurrence}</span>`:''}
       </div>
       <div class="tmeta">
         ${proj?`<span class="bdg btd">📁 ${esc(proj.title)}</span>`:''}
@@ -1509,8 +1629,10 @@ function buildTaskCard(t){
         <span class="bdg ${sc.cls}">${sc.label}</span>
         ${(+t.estHours||+t.actualHours)?`<span class="bdg bhr ${hourOver?'over':''}">⏱ ${(+t.actualHours||0)}/${(+t.estHours||0)}h</span>`:''}
         ${subTotal?`<span class="bdg btd">☑ ${subDone}/${subTotal}</span>`:''}
+        ${(t.tags||[]).map(tg=>`<span class="tag">#${esc(tg)}</span>`).join('')}
       </div>
       <div class="tact">
+        <button class="timer-btn ${timerRunning?'running':''}" onclick="toggleTimer(${t.id})">${timerRunning?'⏹ '+elapsed:'▶ Timer'}</button>
         <button class="btn bo bsm" onclick="viewNotes(${t.id})">📄 Detail</button>
         <select class="tss" onchange="updateStatus(${t.id},this.value)">
           <option value="todo"        ${t.status==='todo'       ?'selected':''}>To Do</option>
@@ -1553,8 +1675,10 @@ function updateStatus(id, status){
 function toggleComplete(id){
   const t = D.tasks.find(x => x.id === id);
   if(!t) return;
-  updateStatus(id, t.status==='done' ? 'todo' : 'done');
-  toast(t.status==='done' ? '✅ Task complete!' : 'Reopened');
+  const wasDone = t.status === 'done';
+  updateStatus(id, wasDone ? 'todo' : 'done');
+  if(!wasDone && t.recurrence && t.recurrence !== 'none') spawnRecurring(t);
+  toast(wasDone ? 'Reopened' : '✅ Task complete!');
 }
 const _CYCLE = ['todo','in_progress','review','done'];
 function cycleStatus(id){
@@ -1623,25 +1747,33 @@ function openTaskModal(taskId=null, presetDate=null){
     document.getElementById('t-title').value    = t.title;
     document.getElementById('t-priority').value = t.priority;
     document.getElementById('t-status').value   = t.status || 'todo';
-    document.getElementById('t-deadline').value = t.deadline || '';
-    document.getElementById('t-est').value      = t.estHours || '';
-    document.getElementById('t-act').value      = t.actualHours || '';
+    document.getElementById('t-start').value      = t.startDate || '';
+    document.getElementById('t-deadline').value   = t.deadline || '';
+    document.getElementById('t-est').value        = t.estHours || '';
+    document.getElementById('t-act').value        = t.actualHours || '';
+    document.getElementById('t-recurrence').value = t.recurrence || 'none';
+    document.getElementById('t-blocked').value    = (t.blockedBy||[]).join(', ');
     tp.value = t.projectId ? String(t.projectId) : '';
     quillNotes = t.notes || '';
     if(quillInst) quillInst.root.innerHTML = t.notes || '';
     if(fb) fb.value = (t.notes||'').replace(/<[^>]+>/g,'');
+    renderTagWrap(t.tags||[]);
   } else {
     document.getElementById('modal-title').textContent = '✨ New Task';
-    document.getElementById('t-title').value    = '';
-    document.getElementById('t-priority').value = 'medium';
-    document.getElementById('t-status').value   = 'todo';
-    document.getElementById('t-deadline').value = presetDate || '';
-    document.getElementById('t-est').value      = '';
-    document.getElementById('t-act').value      = '';
+    document.getElementById('t-title').value      = '';
+    document.getElementById('t-priority').value   = 'medium';
+    document.getElementById('t-status').value     = 'todo';
+    document.getElementById('t-start').value      = '';
+    document.getElementById('t-deadline').value   = presetDate || '';
+    document.getElementById('t-est').value        = '';
+    document.getElementById('t-act').value        = '';
+    document.getElementById('t-recurrence').value = 'none';
+    document.getElementById('t-blocked').value    = '';
     tp.value = '';
     quillNotes = '';
     if(quillInst){ quillInst.setContents([]); }
     if(fb) fb.value = '';
+    renderTagWrap([]);
   }
   modal.style.display = 'flex';
   setTimeout(()=>document.getElementById('t-title').focus(), 60);
@@ -1656,9 +1788,13 @@ function saveTask(){
   const projId  = document.getElementById('t-project').value;
   const prio    = document.getElementById('t-priority').value;
   const status  = document.getElementById('t-status').value;
-  const ddl     = document.getElementById('t-deadline').value;
-  const est     = +document.getElementById('t-est').value || 0;
-  const act     = +document.getElementById('t-act').value || 0;
+  const startDate  = document.getElementById('t-start').value;
+  const ddl        = document.getElementById('t-deadline').value;
+  const est        = +document.getElementById('t-est').value || 0;
+  const act        = +document.getElementById('t-act').value || 0;
+  const recurrence = document.getElementById('t-recurrence').value;
+  const blockedBy  = document.getElementById('t-blocked').value.split(',').map(s=>+s.trim()).filter(Boolean);
+  const tags       = _editTags.slice();
   const errEl   = document.getElementById('modal-err');
   const box     = document.querySelector('#task-modal .mbox');
 
@@ -1678,10 +1814,10 @@ function saveTask(){
   const completedAt = status==='done' ? (new Date().toISOString()) : null;
   if(editingId){
     const idx = D.tasks.findIndex(t => t.id === editingId);
-    if(idx >= 0) D.tasks[idx] = {...D.tasks[idx], title, projectId:projId?parseInt(projId):null, priority:prio, status, deadline:ddl, notes, estHours:est, actualHours:act, completedAt: status==='done'?(D.tasks[idx].completedAt||completedAt):null};
+    if(idx >= 0) D.tasks[idx] = {...D.tasks[idx], title, projectId:projId?parseInt(projId):null, priority:prio, status, startDate, deadline:ddl, notes, estHours:est, actualHours:act, recurrence, blockedBy, tags, completedAt: status==='done'?(D.tasks[idx].completedAt||completedAt):null};
     toast('Task updated!');
   } else {
-    D.tasks.push({id:newId(), title, projectId:projId?parseInt(projId):null, priority:prio, deadline:ddl, notes, status, estHours:est, actualHours:act, completedAt, subtasks:[], gcalEventId:null});
+    D.tasks.push({id:newId(), title, projectId:projId?parseInt(projId):null, priority:prio, startDate, deadline:ddl, notes, status, estHours:est, actualHours:act, recurrence, blockedBy, tags, completedAt, subtasks:[], gcalEventId:null, timerStart:null, timerTotal:0});
     toast('Task added!');
   }
   save(); closeTaskModal(); renderAll();
@@ -1777,15 +1913,18 @@ function renderCalendar(){
   let html2 = DAYS7.map(d => `<div class="caldh">${d}</div>`).join('');
   for(let i=0;i<firstDay;i++) html2 += `<div class="calday emp"></div>`;
   for(let d=1;d<=daysInMon;d++){
-    const ds  = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const ds   = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isTd = ds === ts;
-    const dts = D.tasks.filter(t => t.deadline === ds);
+    const dts  = D.tasks.filter(t => t.deadline === ds);
+    const load = dts.reduce((s,t) => s + (+t.estHours||0), 0);
+    const loadCls = load > 6 ? 'load-hi' : load > 3 ? 'load-md' : load > 0 ? 'load-lo' : '';
     const pills = dts.map(t => {
       const bg = t.status==='done' ? '#10B981' : (P_CFG[t.priority]?.dot || '#5B6EF5');
       return `<div class="cpill" style="background:${bg}" onclick="event.stopPropagation();openTaskModal(${t.id})" title="${esc(t.title)}">${esc(t.title)}</div>`;
     }).join('');
     html2 += `<div class="calday${isTd?' tod':''}" onclick="openTaskModal(null,'${ds}')">
       <div class="calnum">${isTd?`<div class="calnum-inner">${d}</div>`:d}</div>
+      ${loadCls?`<div class="cal-load ${loadCls}" title="${load}h scheduled"></div>`:''}
       ${pills}
     </div>`;
   }
@@ -2235,13 +2374,132 @@ function renderMyDay(){
 }
 
 /* ══════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════ */
+function toggleDarkMode(){
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('tm_theme', isDark ? 'light' : 'dark');
+  document.getElementById('dm-btn').textContent = isDark ? '🌙' : '☀️';
+}
+function initTheme(){
+  const t = localStorage.getItem('tm_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('dm-btn').textContent = t==='dark' ? '☀️' : '🌙';
+}
+
+/* ══════════════════════════════════════
+   TAGS
+══════════════════════════════════════ */
+let _editTags = [];
+function renderTagWrap(tags){
+  _editTags = [...tags];
+  const wrap = document.getElementById('tag-wrap');
+  if(!wrap) return;
+  const inp = document.getElementById('tag-input');
+  wrap.innerHTML = '';
+  _editTags.forEach((tg,i) => {
+    const s = document.createElement('span');
+    s.className = 'tag';
+    s.innerHTML = `#${esc(tg)} <button class="tag-rm" onclick="_editTags.splice(${i},1);renderTagWrap(_editTags)">×</button>`;
+    wrap.appendChild(s);
+  });
+  wrap.appendChild(inp);
+  inp.value = '';
+}
+function handleTagInput(e){
+  if(e.key === 'Enter' || e.key === ','){
+    e.preventDefault();
+    const v = e.target.value.trim().replace(/^#/,'').replace(/,/g,'');
+    if(v && !_editTags.includes(v)){ _editTags.push(v); renderTagWrap(_editTags); }
+    else e.target.value = '';
+  }
+}
+
+/* ══════════════════════════════════════
+   BROWSER NOTIFICATIONS
+══════════════════════════════════════ */
+function initNotifications(){
+  if(!('Notification' in window)) return;
+  if(Notification.permission === 'default') Notification.requestPermission();
+  setInterval(checkDueNotifications, 60000);
+  checkDueNotifications();
+}
+function checkDueNotifications(){
+  if(Notification.permission !== 'granted') return;
+  const now = new Date();
+  const soon = new Date(now.getTime() + 30*60000);
+  const soonStr = soon.toISOString().split('T')[0];
+  const overdue = D.tasks.filter(t => t.status!=='done' && t.deadline && t.deadline < now.toISOString().split('T')[0]);
+  const dueSoon = D.tasks.filter(t => t.status!=='done' && t.deadline === soonStr);
+  const dot = document.getElementById('notif-dot');
+  if(dot) dot.classList.toggle('show', overdue.length > 0 || dueSoon.length > 0);
+}
+function showNotifications(){
+  const today = todayStr();
+  const overdue = D.tasks.filter(t => t.status!=='done' && t.deadline && t.deadline < today);
+  const dueSoon = D.tasks.filter(t => t.status!=='done' && t.deadline === today);
+  if(!overdue.length && !dueSoon.length){ toast('No urgent notifications 🎉','info'); return; }
+  if(overdue.length) toast(`⚠️ ${overdue.length} overdue task${overdue.length>1?'s':''}`, 'error');
+  if(dueSoon.length) toast(`📅 ${dueSoon.length} task${dueSoon.length>1?'s':''} due today`, 'info');
+}
+
+/* ══════════════════════════════════════
+   LIVE TIMER
+══════════════════════════════════════ */
+let _timerInterval = null;
+function fmtElapsed(ms){
+  const s = Math.floor(ms/1000);
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  return h ? `${h}h ${m}m` : `${m}m`;
+}
+function toggleTimer(id){
+  const t = D.tasks.find(x => x.id === id);
+  if(!t) return;
+  if(t.timerStart){
+    const elapsed = (Date.now() - t.timerStart) / 3600000;
+    t.actualHours = Math.round(((+t.actualHours||0) + elapsed) * 100) / 100;
+    t.timerStart  = null;
+    toast(`⏱ Timer stopped — ${fmtElapsed(elapsed*3600000)} logged`);
+  } else {
+    t.timerStart = Date.now();
+    toast('⏱ Timer started');
+  }
+  save(); renderTasks();
+  clearInterval(_timerInterval);
+  if(D.tasks.some(x => x.timerStart)){
+    _timerInterval = setInterval(renderTasks, 30000);
+  }
+}
+
+/* ══════════════════════════════════════
+   RECURRING TASKS
+══════════════════════════════════════ */
+function spawnRecurring(t){
+  if(!t.deadline) return;
+  const d = new Date(t.deadline+'T00:00:00');
+  if(t.recurrence==='daily')   d.setDate(d.getDate()+1);
+  if(t.recurrence==='weekly')  d.setDate(d.getDate()+7);
+  if(t.recurrence==='monthly') d.setMonth(d.getMonth()+1);
+  const nextDdl = d.toISOString().split('T')[0];
+  D.tasks.push({...t, id:newId(), status:'todo', completedAt:null, deadline:nextDdl,
+    timerStart:null, timerTotal:0, subtasks:[], gcalEventId:null});
+  save();
+  toast(`🔁 Recurring task created for ${nextDdl}`);
+}
+
+/* ══════════════════════════════════════
    BOOT
 ══════════════════════════════════════ */
 window.addEventListener('load', () => {
   initQuill();
+  initTheme();
   updateHeaderProfile();
   renderAll();
   renderProfilePage();
+  initNotifications();
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 });
 
 
