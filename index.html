@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VipinTaskManager Pro</title>
-<link rel="manifest" href="./manifest.json">
+<link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;TaskManager Pro&quot;,&quot;short_name&quot;:&quot;TaskMgr&quot;,&quot;start_url&quot;:&quot;./&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#EEF2FF&quot;,&quot;theme_color&quot;:&quot;#5B6EF5&quot;}">
 <meta name="theme-color" content="#5B6EF5">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1640,8 +1640,6 @@ function buildTaskCard(t){
           <option value="review"      ${t.status==='review'     ?'selected':''}>In Review</option>
           <option value="done"        ${t.status==='done'       ?'selected':''}>Done</option>
         </select>
-        <button class="bic" onclick="cycleStatus(${t.id})" title="Advance status">▶</button>
-        <button class="bic" onclick="window.open(gcalDeepLink(${t.id}),'_blank')" title="Add to Google Calendar">📅</button>
         <button class="bic" onclick="openTaskModal(${t.id})" title="Edit">✏️</button>
         <button class="bic bic-red" onclick="deleteTask(${t.id})" title="Delete">🗑️</button>
       </div>
@@ -2499,7 +2497,6 @@ window.addEventListener('load', () => {
   renderAll();
   renderProfilePage();
   initNotifications();
-  if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 });
 
 
